@@ -10,28 +10,32 @@ export default function Register(){
     const [name,setName] = useState("");
     const [passwordValidation,setPasswordValidation] = useState("");
 
+    console.log(name.length)
+
     function SendForm(){
         if(password !==passwordValidation){
             alert("Senhas incorretas.Digite novamente sua senhas");
             setPassword("");
-            setPasswordValidation("");
-        }else{
+            setPasswordValidation("");}
+        if(name.length || password.length || enrollment.length < 3){
+            alert("Revise os seus Dados")
+        }
+        else{
             const data = {
                 enrollment,
+                name,
                 password
             }
-           axios.post("",data)
+           axios.post("http://localhost:4000/user/signup",data)
             .then(response =>{
                 console.log(response.data)
             })
             .catch(error =>{
                 console.log(error);
-    
             })
         }
        
     }
-
     return(<>
     <Header/>
     <Container>
