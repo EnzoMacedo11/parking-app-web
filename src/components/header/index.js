@@ -12,10 +12,13 @@ return(
 
 const Container = styled.div`
 display:flex;
+top:0;
 width:100%;
-height:10%;
+height:8vh;
+
 flex-direction:column;
-background-color:green;
+background-color:#3498db;
 align-items:center;
 justify-content:center;
+color:whitesmoke;
 `

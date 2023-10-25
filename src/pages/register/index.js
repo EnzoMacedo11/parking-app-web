@@ -4,23 +4,32 @@ import { useState } from "react"
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-export default function Login(){
+export default function Register(){
     const [enrollment,setEnrollment] = useState("");
-    const [password,setPassword] = useState("")
+    const [password,setPassword] = useState("");
+    const [name,setName] = useState("");
+    const [passwordValidation,setPasswordValidation] = useState("");
 
     function SendForm(){
-        const data = {
-            enrollment,
-            password
+        if(password !==passwordValidation){
+            alert("Senhas incorretas.Digite novamente sua senhas");
+            setPassword("");
+            setPasswordValidation("");
+        }else{
+            const data = {
+                enrollment,
+                password
+            }
+           axios.post("",data)
+            .then(response =>{
+                console.log(response.data)
+            })
+            .catch(error =>{
+                console.log(error);
+    
+            })
         }
-       axios.post("",data)
-        .then(response =>{
-            console.log(response.data)
-        })
-        .catch(error =>{
-            console.log(error);
-
-        })
+       
     }
 
     return(<>
@@ -29,20 +38,29 @@ export default function Login(){
             
             <FormBox>
                 <FormTitle>
-                    Login
+                    Cadastro
                 </FormTitle>
                 <InputBox>
                 <InputText>Matrícula</InputText>
                 <InputStyle placeholder="Digite sua matrícula" value={enrollment} onChange={(e)=>setEnrollment(e.target.value)}/>
                 </InputBox>
                 <InputBox>
+                <InputText>Nome</InputText>
+                <InputStyle placeholder="Digite seu nome" value={name} onChange={(e)=>setName(e.target.value)}/>
+                </InputBox>
+                
+                <InputBox>
                 <InputText>Senha</InputText>
                 <InputStyle placeholder="Digite sua senha" value={password} type="password" onChange={(e)=>setPassword(e.target.value)}/>
                 </InputBox>
-                <FormButton onClick={SendForm}>Login</FormButton>
-                <Link to="/register">
+                <InputBox>
+                <InputText>Confirme sua senha</InputText>
+                <InputStyle placeholder="Digite sua senha novamente" value={passwordValidation} type="password" onChange={(e)=>setPasswordValidation(e.target.value)}/>
+                </InputBox>
+                <FormButton onClick={SendForm}>Registrar</FormButton>
+                <Link to="/login">
                 <LinkLoginRegister>
-                Não tem uma conta? Clique aqui </LinkLoginRegister>
+               Já tem uma conta? Clique aqui </LinkLoginRegister>
                 </Link>
             </FormBox>
         </Container></>
