@@ -1,23 +1,30 @@
 import styled from "styled-components"
 import Header from "../../components/header"
-import { useState } from "react"
-import { Link } from "react-router-dom";
+import { useContext, useEffect, useState } from "react"
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import UserContext from "../../context.js";
 
 export default function Register(){
+    const {userData, setUserData} = useContext(UserContext)
+    const Navigate = useNavigate()
     const [enrollment,setEnrollment] = useState("");
     const [password,setPassword] = useState("");
     const [name,setName] = useState("");
     const [passwordValidation,setPasswordValidation] = useState("");
 
-    console.log(name.length)
+    useEffect(()=>{
+        if(userData){
+        Navigate("/")
+        }
+    },[userData])
 
     function SendForm(){
         if(password !==passwordValidation){
             alert("Senhas incorretas.Digite novamente sua senhas");
             setPassword("");
             setPasswordValidation("");}
-        if(name.length || password.length || enrollment.length < 3){
+        else if(name.length < 3  || password.length < 3  || enrollment.length < 3){
             alert("Revise os seus Dados")
         }
         else{
@@ -28,10 +35,12 @@ export default function Register(){
             }
            axios.post("http://localhost:4000/user/signup",data)
             .then(response =>{
-                console.log(response.data)
+                alert(response.data);
+                Navigate("/login")
+                
             })
             .catch(error =>{
-                console.log(error);
+                alert(error.response.data);
             })
         }
        
@@ -125,7 +134,7 @@ color:whitesmoke;
 
 const FormButton = styled.button`
 margin-top:5%;
-margin-bottom:2%;
+margin-bottom:5%;
 display:flex;
 justify-content:center;
 align-items:center;

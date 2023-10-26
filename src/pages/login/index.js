@@ -1,25 +1,39 @@
 import styled from "styled-components"
 import Header from "../../components/header"
-import { useState } from "react"
-import { Link } from "react-router-dom";
+import { useContext, useEffect, useState } from "react"
+import { Link, useNavigate,  } from "react-router-dom";
 import axios from "axios";
+import UserContext from "../../context.js";
 
 export default function Login(){
+    const {userData, setUserData} = useContext(UserContext)
+    const Navigate = useNavigate()
     const [enrollment,setEnrollment] = useState("");
     const [password,setPassword] = useState("")
+
+    useEffect(()=>{
+        if(userData){
+        Navigate("/")
+        }
+    },[userData])
 
     function SendForm(){
         const data = {
             enrollment,
             password
         }
-       axios.post("",data)
+       axios.post("http://192.168.0.14:4000/user/signin",data)
         .then(response =>{
-            console.log(response.data)
+            setUserData({
+                name:response.data.name,
+                token:response.data.token,
+                admin:response.data.admin
+            })   
+            Navigate("/")
+       
         })
         .catch(error =>{
-            console.log(error);
-
+            alert(error.response.data);
         })
     }
 
@@ -103,7 +117,7 @@ color:whitesmoke;
 
 const FormButton = styled.button`
 margin-top:5%;
-margin-bottom:2%;
+margin-bottom:5%;
 display:flex;
 justify-content:center;
 align-items:center;

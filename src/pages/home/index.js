@@ -1,25 +1,33 @@
 import styled from "styled-components"
 import Header from "../../components/header"
-import { useState } from "react"
-import { Link } from "react-router-dom";
-import axios from "axios";
+import { useContext, useEffect, useState } from "react"
 import QRCode from "qrcode.react";
+import UserContext from "../../context.js";
+import { useNavigate } from "react-router-dom";
+
 
 export default function Home(){
-
-    const token = "teste token 123456"
-    const windowHeight = window.innerHeight;
-    const qrCodeHeight = (windowHeight*0.3)
-
+    const Navigate = useNavigate()
+    const {userData} = useContext(UserContext);
+    useEffect(() => {
+        if (!userData) {
+          Navigate("/login");
+        }
+      }, [userData]);
+    
+      if (!userData) {
+        return null;
+      }
+  
     return(<>
     <Header/>
     <Container>
             <MainBox>
                 <Title>
-                    Bem vindo "Nome", <br/>
+                    Bem vindo {userData.name}, <br/>
                     Aproxime seu celular ao leitor.
                 </Title>
-                <QRCode size={qrCodeHeight} value={token} />
+                <QRCode size={280} value={userData.token} />
             </MainBox>
         </Container></>
         
@@ -41,7 +49,7 @@ display:flex;
 flex-direction:column;
 align-items:center;
 justify-content:center;
-width:80%;
+width:85%;
 height:75%;
 border-radius:15px;
 background: linear-gradient(to bottom, #258CD0, #1C699C);
@@ -50,7 +58,7 @@ const Title = styled.text`
 margin-bottom:7%;
 
 font-size:16px;
-color:black;
+color:whitesmoke;
 
 `
 
