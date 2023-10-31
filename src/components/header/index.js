@@ -3,10 +3,12 @@ import UserContext from "../../context.js";
 import { useContext, useState } from "react";
 import { IoLogOutOutline, IoMenu,IoShieldCheckmarkOutline } from "react-icons/io5";
 import Sidebar from "../sidebar/index.js";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Header() {
   const { userData, setUserData } = useContext(UserContext);
   const [visible, setVisible] = useState(false);
+  const Navigate = useNavigate()
 
   function SidebarToogle() {
     if (visible === true) {
@@ -25,7 +27,10 @@ export default function Header() {
             <Left>
               <IoMenu size={22} onClick={SidebarToogle} />
             </Left>
-            Parking-App <IoShieldCheckmarkOutline  size={18} style={{marginLeft:"5px"}}/>
+            <div onClick={()=>{Navigate("/")}}>Parking-App
+            </div>
+             
+            <IoShieldCheckmarkOutline  size={18} style={{marginLeft:"5px"}}/>
             <Right>
               <IoLogOutOutline onClick={() => setUserData(null)} size={22} />
             </Right>

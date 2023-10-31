@@ -3,6 +3,7 @@ import Login from "./pages/login";
 import Register from "./pages/register";
 import Home from "./pages/home";
 import { UserProvider } from "./context.js";
+import History from "./pages/history";
 
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" Component={Home} />
           <Route path="/login" Component={Login} />
           <Route path="/register" Component={Register} />
+          <Route path="/history" Component={History}/>
         </Routes>
       </BrowserRouter>
     </UserProvider>

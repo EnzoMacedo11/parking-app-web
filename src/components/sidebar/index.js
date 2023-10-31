@@ -1,14 +1,20 @@
 import styled from "styled-components";
 import { IoReader, IoReceiptOutline, IoQrCodeSharp } from "react-icons/io5";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Sidebar(props) {
   const { visible } = props;
+  const Navigate = useNavigate()
   console.log(visible);
   return (
     <Container visible={visible}>
-      <Box>
-        <IoReader style={{color:"whitesmoke"}} /> <Title>Histórico</Title>
+    
+      <Box onClick={()=>Navigate("/history")}>
+        <IoReader  style={{color:"whitesmoke"}} /> <Title>Histórico</Title>
       </Box>
+  
+     
       <Box>
         <IoQrCodeSharp  style={{color:"whitesmoke"}}/> <Title>Buscador</Title>
       </Box>
