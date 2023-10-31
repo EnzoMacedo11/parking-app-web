@@ -33,7 +33,7 @@ export default function Register(){
                 name,
                 password
             }
-           axios.post("http://localhost:4000/user/signup",data)
+           axios.post("http://192.168.0.14:4000/user/signup",data)
             .then(response =>{
                 alert(response.data);
                 Navigate("/login")
@@ -45,6 +45,13 @@ export default function Register(){
         }
        
     }
+
+    function EnterKeyPress(event) {
+        if (event.key === "Enter") {
+          SendForm();
+        }
+      }
+
     return(<>
     <Header/>
     <Container>
@@ -68,7 +75,7 @@ export default function Register(){
                 </InputBox>
                 <InputBox>
                 <InputText>Confirme sua senha</InputText>
-                <InputStyle placeholder="Digite sua senha novamente" value={passwordValidation} type="password" onChange={(e)=>setPasswordValidation(e.target.value)}/>
+                <InputStyle onKeyDown={EnterKeyPress} placeholder="Digite sua senha novamente" value={passwordValidation} type="password" onChange={(e)=>setPasswordValidation(e.target.value)}/>
                 </InputBox>
                 <FormButton onClick={SendForm}>Registrar</FormButton>
                 <Link to="/login">
@@ -99,6 +106,14 @@ justify-content:center;
 width:80%;
 height:75%;
 border-radius:15px;
+
+@media (min-width: 600px) {
+    width: 580px;
+    
+}
+@media (min-height: 800px) {
+    height: 700px;
+}
 
 `
 const FormTitle = styled.text`

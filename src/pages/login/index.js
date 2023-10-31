@@ -37,6 +37,12 @@ export default function Login(){
         })
     }
 
+    function EnterKeyPress(event) {
+        if (event.key === "Enter") {
+          SendForm();
+        }
+      }
+
     return(<>
     <Header/>
     <Container>
@@ -51,7 +57,7 @@ export default function Login(){
                 </InputBox>
                 <InputBox>
                 <InputText>Senha</InputText>
-                <InputStyle placeholder="Digite sua senha" value={password} type="password" onChange={(e)=>setPassword(e.target.value)}/>
+                <InputStyle onKeyDown={EnterKeyPress} placeholder="Digite sua senha" value={password} type="password" onChange={(e)=>setPassword(e.target.value)}/>
                 </InputBox>
                 <FormButton onClick={SendForm}>Login</FormButton>
                 <Link to="/register">
@@ -82,6 +88,14 @@ justify-content:center;
 width:80%;
 height:75%;
 border-radius:15px;
+
+@media (min-width: 600px) {
+    width: 580px;
+    
+}
+@media (min-height: 800px) {
+    height: 700px;
+}
 
 `
 const FormTitle = styled.text`

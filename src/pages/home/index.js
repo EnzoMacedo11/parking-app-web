@@ -27,7 +27,7 @@ export default function Home(){
                     Bem vindo {userData.name}, <br/>
                     Aproxime seu celular ao leitor.
                 </Title>
-                <QRCode size={280} value={userData.token} />
+                <QRCode size={310} value={userData.token} />
             </MainBox>
         </Container></>
         
@@ -49,16 +49,30 @@ display:flex;
 flex-direction:column;
 align-items:center;
 justify-content:center;
-width:85%;
-height:75%;
+width:95%;
+height:90%;
 border-radius:15px;
 background: linear-gradient(to bottom, #258CD0, #1C699C);
+
+
+@media (min-width: 600px) {
+    width: 580px;
+    
+}
+@media (min-height: 800px) {
+    height: 700px;
+}
 `
 const Title = styled.text`
 margin-bottom:7%;
 
 font-size:16px;
 color:whitesmoke;
+
+@media (min-width: 600px) {
+  font-size:22px;
+    
+}
 
 `
 
