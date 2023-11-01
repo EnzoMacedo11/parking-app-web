@@ -4,6 +4,7 @@ import Register from "./pages/register";
 import Home from "./pages/home";
 import { UserProvider } from "./context.js";
 import History from "./pages/history";
+import Search from "./pages/search";
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
           <Route path="/login" Component={Login} />
           <Route path="/register" Component={Register} />
           <Route path="/history" Component={History}/>
+          <Route path="search" Component={Search}/>
         </Routes>
       </BrowserRouter>
     </UserProvider>

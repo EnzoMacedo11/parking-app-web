@@ -15,7 +15,7 @@ export default function Sidebar(props) {
       </Box>
   
      
-      <Box>
+      <Box onClick={()=>Navigate("/search")}>
         <IoQrCodeSharp  style={{color:"whitesmoke"}}/> <Title>Buscador</Title>
       </Box>
 

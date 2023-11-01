@@ -1,19 +1,15 @@
 import styled from "styled-components";
 import Header from "../../components/header";
 import { useContext, useEffect, useState } from "react";
-import QRCode from "qrcode.react";
 import UserContext from "../../context.js";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import dateFormat from "../../components/dateFormat";
+import {Html5QrcodeScanner} from "html5-qrcode";
 
-export default function History() {
+export default function Search() {
   const Navigate = useNavigate();
   const { userData, setUserData } = useContext(UserContext);
-  const [historyData, setHistoryData] = useState([]);
-  console.log("hist", historyData);
-
-
+  const [qrToken,setQrToken] = useState("")
 
   useEffect(() => {
     if (!userData) {
@@ -25,19 +21,22 @@ export default function History() {
         Navigate("/login");
       }
       if (userData.admin === true) {
-        if (historyData.length == 0) {
-          console.log("fui");
-          axios
-            .get("http://192.168.0.14:4000/park/all", {
-              headers: { token: userData.token },
-            })
-            .then((response) => {
-              setHistoryData(response.data);
-            })
-            .catch((error) => {
-              alert(error.message);
-            });
+        function onScanSuccess(decodedText, decodedResult) {
+          // handle the scanned code as you like, for example:
+          console.log(`Code matched = ${decodedText}`, decodedResult);
         }
+        
+        function onScanFailure(error) {
+          // handle scan failure, usually better to ignore and keep scanning.
+          // for example:
+          console.warn(`Code scan error = ${error}`);
+        }
+        
+        let html5QrcodeScanner = new Html5QrcodeScanner(
+          "reader",
+          { fps: 10, qrbox: {width: 250, height: 250} },
+          /* verbose= */ false);
+        html5QrcodeScanner.render(onScanSuccess, onScanFailure);
       }
     }
   }, [userData]);
@@ -49,19 +48,8 @@ export default function History() {
           <Header />
           <Container>
             <MainBox>
-              <Title>Histórico</Title>
-              <HistoryScroll>
-              {historyData.map((c, k) => (
-                
-                     <HistoryContainer key={k}>
-                  <HistoryItems>Matrícula:{c.enrollment}</HistoryItems>
-                  <HistoryItems>Data: {dateFormat(c.createdAt)}</HistoryItems>
-
-                </HistoryContainer>
-               
-               
-              ))}
-               </HistoryScroll>
+              <Title>Buscador</Title>
+              <div id="reader" width="600px"></div>
             </MainBox>
           </Container>
         </>
