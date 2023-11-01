@@ -11,52 +11,56 @@ export default function Search() {
   const { userData, setUserData } = useContext(UserContext);
   const [qrToken,setQrToken] = useState("")
 
-  useEffect(() => {
-    if (!userData) {
-      Navigate("/login");
-    }
-    if (userData) {
-      if (userData.admin === false) {
-        setUserData(null);
-        Navigate("/login");
-      }
-      if (userData.admin === true) {
-        function onScanSuccess(decodedText, decodedResult) {
-          // handle the scanned code as you like, for example:
-          console.log(`Code matched = ${decodedText}`, decodedResult);
-        }
+  // useEffect(() => {
+  //   if (!userData) {
+  //     Navigate("/login");
+  //   }
+  //   if (userData) {
+  //     if (userData.admin === false) {
+  //       setUserData(null);
+  //       Navigate("/login");
+  //     }
+  //     if (userData.admin === true) {
         
-        function onScanFailure(error) {
-          // handle scan failure, usually better to ignore and keep scanning.
-          // for example:
-          console.warn(`Code scan error = ${error}`);
-        }
-        
-        let html5QrcodeScanner = new Html5QrcodeScanner(
-          "reader",
-          { fps: 10, qrbox: {width: 250, height: 250} },
-          /* verbose= */ false);
-        html5QrcodeScanner.render(onScanSuccess, onScanFailure);
-      }
-    }
-  }, [userData]);
+  //     }
+  //   }
+  // }, [userData]);
 
-  if (userData) {
-    if (userData.admin === true) {
+  useEffect(()=>{ function onScanSuccess(decodedText, decodedResult) {
+    // handle the scanned code as you like, for example:
+    console.log(`Code matched = ${decodedText}`, decodedResult);
+  }
+  
+  function onScanFailure(error) {
+    // handle scan failure, usually better to ignore and keep scanning.
+    // for example:
+    console.warn(`Code scan error = ${error}`);
+  }
+  
+  let html5QrcodeScanner = new Html5QrcodeScanner(
+    "reader",
+    { fps: 10, qrbox: {width: 250, height: 250} },
+    /* verbose= */ false);
+  html5QrcodeScanner.render(onScanSuccess, onScanFailure);},[])
+ 
+
+  // if (userData) {
+  //   if (userData.admin === true) {
       return (
         <>
-          <Header />
+          {/* <Header /> */}
           <Container>
             <MainBox>
               <Title>Buscador</Title>
               <div id="reader" width="600px"></div>
+              
             </MainBox>
           </Container>
         </>
       );
     }
-  }
-}
+//   }
+// }
 
 const Container = styled.div`
   display: flex;
