@@ -13,11 +13,11 @@ function App() {
     <UserProvider>
       <BrowserRouter>
         <Routes>
-          {/* <Route path="/" Component={Home} />
+          <Route path="/" Component={Home} />
           <Route path="/login" Component={Login} />
           <Route path="/register" Component={Register} />
-          <Route path="/history" Component={History}/> */}
-          <Route path="/" Component={Search}/>
+          <Route path="/history" Component={History}/>
+          <Route path="/search" Component={Search}/>
         </Routes>
       </BrowserRouter>
     </UserProvider>
