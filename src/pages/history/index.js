@@ -13,8 +13,6 @@ export default function History() {
   const [historyData, setHistoryData] = useState([]);
   //console.log("hist", historyData);
 
-
-
   useEffect(() => {
     if (!userData) {
       Navigate("/login");
@@ -26,9 +24,8 @@ export default function History() {
       }
       if (userData.admin === true) {
         if (historyData.length == 0) {
-          console.log("fui");
           axios
-            .get("http://192.168.0.14:4000/park/all", {
+            .get("https://parking-web-svky.onrender.com/park/all", {
               headers: { token: userData.token },
             })
             .then((response) => {
@@ -44,30 +41,30 @@ export default function History() {
 
   if (userData) {
     if (userData.admin === true) {
-      return (
-        <>
-          <Header />
-          <Container>
-            <MainBox>
-              <Title>Histórico</Title>
-              <HistoryScroll>
-              {historyData.map((c, k) => (
-                
-                     <HistoryContainer key={k}><InfDiv>
-                     <HistoryItems>N: {c.id} / </HistoryItems> 
-                     <HistoryItems>Matr: {c.enrollment}</HistoryItems></InfDiv>
-                  
-                  <HistoryItems>Data: {dateFormat(c.createdAt)}</HistoryItems>
-
-                </HistoryContainer>
-               
-               
-              ))}
-               </HistoryScroll>
-            </MainBox>
-          </Container>
-        </>
-      );
+        return (
+          <>
+            <Header />
+            <Container>
+              <MainBox>
+                <Title>Histórico</Title>
+                <HistoryScroll>
+                  {historyData.length > 0 ? 
+                  historyData.map((c, k) => (
+                    <HistoryContainer key={k}>
+                      <InfDiv>
+                        <HistoryItems>N: {c.id} / </HistoryItems>
+                        <HistoryItems>Matr: {c.enrollment}</HistoryItems>
+                      </InfDiv>
+                      <HistoryItems>
+                        Data: {dateFormat(c.createdAt)}
+                      </HistoryItems>
+                    </HistoryContainer>
+                  )): <HistoryContainer>"Ainda não temos registros"</HistoryContainer>}
+                </HistoryScroll>
+              </MainBox>
+            </Container>
+          </>
+        );
     }
   }
 }
@@ -86,10 +83,10 @@ const MainBox = styled.div`
   flex-direction: column;
   align-items: center;
   width: 95%;
-  height:90%;
+  height: 90%;
   border-radius: 15px;
   background: linear-gradient(to bottom, #258cd0, #1c699c);
-  
+
   @media (min-width: 600px) {
     max-width: 580px;
   }
@@ -112,10 +109,10 @@ const Title = styled.text`
 const HistoryContainer = styled.div`
   display: flex;
   background-color: #3498db;
-  justify-content:space-around;
+  justify-content: space-around;
   align-items: center;
   width: 98%;
-  height:70px;
+  height: 70px;
   margin-bottom: 10px;
   border-radius: 15px;
   border: solid 1px;
@@ -126,15 +123,13 @@ const HistoryItems = styled.text`
 `;
 
 const HistoryScroll = styled.div`
-overflow-y: auto;
-scrollbar-width: none;
--ms-overflow-style: none;
-&::-webkit-scrollbar {
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
     width: 0;
   }
-width:95%;
-max-height: 85%;
-`
-const InfDiv = styled.div`
-
-`
+  width: 95%;
+  max-height: 85%;
+`;
+const InfDiv = styled.div``;

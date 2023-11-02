@@ -45,7 +45,7 @@ export default function Search() {
 
   function SearchUser() {
     axios
-      .get("http://192.168.0.14:4000/user/getuser", {
+      .get("https://parking-web-svky.onrender.com/user/getuser", {
         headers: { token: qrToken },
       })
       .then((response) => {

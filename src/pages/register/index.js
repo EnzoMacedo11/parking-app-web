@@ -36,7 +36,7 @@ export default function Register(){
                 name,
                 password
             }
-           axios.post("http://192.168.0.14:4000/user/signup",data)
+           axios.post("https://parking-web-svky.onrender.com/user/signup",data)
             .then(response =>{
                 alert(response.data);
                 Navigate("/login")
