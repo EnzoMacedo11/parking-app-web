@@ -35,7 +35,7 @@ export default function Search() {
 
         let html5QrcodeScanner = new Html5QrcodeScanner(
           "reader",
-          { fps: 10, qrbox: { width: 200, height: 200 } },
+          { fps: 10, qrbox: { width: 250, height: 250 } },
           /* verbose= */ false
         );
         html5QrcodeScanner.render(onScanSuccess, onScanFailure);
@@ -70,7 +70,7 @@ export default function Search() {
           <Container>
             <MainBox>
               <Title>Buscador</Title>
-              <div id="reader" width="300px"></div>
+              <div id="reader" style={{width:"150px", height:"150px"}}></div>
               <Title>Insira o Token</Title>
               <InputStyle
               onKeyDown={EnterKeyPress}
@@ -131,7 +131,7 @@ const Title = styled.text`
 `;
 
 const InputStyle = styled.input`
-  width: 85%;
+  width: 75%;
   height: 5%;
   margin-left: 2%;
   border-radius: 15px;
