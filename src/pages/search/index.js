@@ -70,7 +70,7 @@ export default function Search() {
           <Container>
             <MainBox>
               <Title>Buscador</Title>
-              <div id="reader" style={{width:"320px", height:"200px", display:"flex", alignItems:"center"}}></div>
+              <div id="reader" style={{width:"320px", height:"210px", display:"flex", alignItems:"center"}}></div>
               <Title>Insira o Token</Title>
               <InputStyle
               onKeyDown={EnterKeyPress}
@@ -107,7 +107,7 @@ const MainBox = styled.div`
   flex-direction: column;
   align-items: center;
   width: 95%;
-  height: 90%;
+  height: 92%;
   border-radius: 15px;
   background: linear-gradient(to bottom, #258cd0, #1c699c);
 
@@ -145,7 +145,7 @@ const SendButton = styled.button`
   justify-content: center;
   align-items: center;
   width: 35%;
-  height: 6%;
+  height: 5%;
   border-radius: 15px;
   font-size: 14px;
   background: #3498db;
