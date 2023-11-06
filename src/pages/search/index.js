@@ -70,7 +70,7 @@ export default function Search() {
           <Container>
             <MainBox>
               <Title>Buscador</Title>
-              <div id="reader" style={{width:"150px", height:"150px"}}></div>
+              <div id="reader" style={{width:"320px", height:"200px", display:"flex", alignItems:"center"}}></div>
               <Title>Insira o Token</Title>
               <InputStyle
               onKeyDown={EnterKeyPress}
